@@ -30,7 +30,19 @@
 
             .container {
                 position: relative;
-                padding: 2rem;
+                padding: 4rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .logo {
+                width: 200px;
+                height: auto;
+                margin-bottom: 1rem;
+                position: relative;
+                z-index: 1;
             }
 
             h1 {
@@ -41,98 +53,14 @@
                 position: relative;
                 z-index: 1;
             }
-
-            .heart {
-                position: absolute;
-                font-size: 1.5rem;
-                pointer-events: none;
-                color: #ff6b9d;
-                font-family:
-                    "Menlo", "Monaco", "Consolas", "Courier New", monospace;
-            }
-
-            .trail {
-                position: absolute;
-                font-size: 1rem;
-                pointer-events: none;
-                color: #ff6b9d;
-                opacity: 0;
-                animation: fadeOut 0.8s linear forwards;
-                font-family:
-                    "Menlo", "Monaco", "Consolas", "Courier New", monospace;
-            }
-
-            @keyframes fadeOut {
-                0% {
-                    opacity: 0.6;
-                    transform: scale(1);
-                }
-                100% {
-                    opacity: 0;
-                    transform: scale(0.5);
-                }
-            }
         </style>
     </head>
     <body>
         <div class="container">
+            <img src="logo.png" alt="Public Affection Logo" class="logo" />
             <h1>Public Affection</h1>
-            <div class="heart" id="heart">&lt;3</div>
         </div>
-
-        <script>
-            const heart = document.getElementById("heart");
-            const container = document.querySelector(".container");
-            const h1 = document.querySelector("h1");
-
-            // Get the bounding box of the h1 element
-            const rect = h1.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-
-            // Calculate orbit parameters
-            const centerX = (rect.left + rect.right) / 2 - containerRect.left;
-            const centerY = (rect.top + rect.bottom) / 2 - containerRect.top;
-            const radiusX = rect.width / 2 + 100;
-            const radiusY = rect.height / 2 + 70;
-
-            let angle = 0;
-            const speed = 0.02; // Adjust for faster/slower orbit
-            let lastTrailTime = 0;
-            const trailInterval = 100; // milliseconds between trail hearts
-
-            function animate(timestamp) {
-                // Update angle
-                angle += speed;
-
-                // Calculate position
-                const x = centerX + Math.cos(angle) * radiusX;
-                const y = centerY + Math.sin(angle) * radiusY;
-
-                // Update heart position
-                heart.style.left = x + "px";
-                heart.style.top = y + "px";
-
-                // Create trail
-                if (timestamp - lastTrailTime > trailInterval) {
-                    const trail = document.createElement("div");
-                    trail.className = "trail";
-                    trail.textContent = "<3";
-                    trail.style.left = x + "px";
-                    trail.style.top = y + "px";
-                    container.appendChild(trail);
-
-                    lastTrailTime = timestamp;
-
-                    // Remove trail element after animation
-                    setTimeout(() => {
-                        trail.remove();
-                    }, 800);
-                }
-
-                requestAnimationFrame(animate);
-            }
-
-            requestAnimationFrame(animate);
-        </script>
+    </body>
+</html>
     </body>
 </html>
